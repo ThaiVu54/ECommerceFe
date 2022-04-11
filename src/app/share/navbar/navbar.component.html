@@ -1,0 +1,8 @@
+<nav style="background-color: #4C5BD4; color: #FFF600" class="navbar navbar-expand-lg py-3">
+  <div style="background-color: #FFF600" id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">X</a>
+    <div *ngFor="let notification of socketService.getNotifications()">
+      <a (click)="deleteNotification(notification.id)" style="font-size: 15px"  )></a>
+    </div>
+  </div>
+</nav>
