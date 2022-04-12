@@ -8,6 +8,11 @@ import {NotificationService} from "../../service/notification/notification.servi
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  private name = window.sessionStorage.getItem('name');
+  private role = window.sessionStorage.getItem('role');
+  private avatar = window.sessionStorage.getItem('avatar');
+  private totalItem = window.sessionStorage.getItem('totalItem');
+  private wallet= window.sessionStorage.getItem('wallet');
 
   constructor(public socketService: SocketService, public notificationService: NotificationService) { }
 
@@ -21,5 +26,34 @@ export class NavbarComponent implements OnInit {
 
   deleteNotification(id: any) {
     this.notificationService.deleteNotification(id).subscribe();
+  }
+
+  openNav(): void {
+    // @ts-ignore
+    document.getElementById("mySidenav").style.width = "250px";
+  }
+
+  getName(): string | null {
+    return this.name;
+  }
+
+  getRole(): string | null {
+    return this.role;
+  }
+
+  getAvatar(): string | null{
+    return this.avatar;
+  }
+
+  getTotalItem(): string | null{
+    return this.totalItem;
+  }
+
+  getWallet(): string | null {
+    return this.wallet;
+  }
+
+  logOut() {
+
   }
 }
