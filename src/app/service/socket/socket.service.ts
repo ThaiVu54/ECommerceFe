@@ -7,9 +7,16 @@ import {Notification} from "../../model/notification";
 })
 export class SocketService {
   private notifications: Notification[] = [];
+  private stompClients: any;
 
   constructor(private notificationService: NotificationService) {}
   public getNotifications(): Notification[]{
     return this.notifications;
+  }
+
+  disconnectNotification() {
+    if (this.stompClients != null){
+      this.stompClients.disconnect();
+    }
   }
 }

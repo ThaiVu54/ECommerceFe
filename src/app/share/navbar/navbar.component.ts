@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {SocketService} from "../../service/socket/socket.service";
 import {NotificationService} from "../../service/notification/notification.service";
+import {AuthorService} from "../../service/author/author.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +16,7 @@ export class NavbarComponent implements OnInit {
   private totalItem = window.sessionStorage.getItem('totalItem');
   private wallet= window.sessionStorage.getItem('wallet');
 
-  constructor(public socketService: SocketService, public notificationService: NotificationService) { }
+  constructor(private authorService: AuthorService, public socketService: SocketService, public notificationService: NotificationService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -54,6 +56,14 @@ export class NavbarComponent implements OnInit {
   }
 
   logOut() {
-
+    this.authorService.logOut().subscribe(()=>{
+      this.socketService.disconnectNotification();
+      window.sessionStorage.clear();
+      this.router.navigateByUrl('/home').then(() => {
+        window.location.reload();
+      });
+    }, (error => {
+      console.log(error);
+    }));
   }
 }
